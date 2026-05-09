@@ -1,0 +1,40 @@
+{
+  "transaction": {
+    "transactionId": "TX_DEMO_0001",
+    "customerRef": "CUST_DEMO_0001",
+    "amount": 1250000,
+    "occurredAt": "2026-05-09T02:35:00",
+    "countryCode": "US",
+    "city": "New York",
+    "merchantId": "MER_DEMO_0001",
+    "merchantCategory": "electronics",
+    "deviceId": "DEV_NEW_0001",
+    "paymentMethod": "CARD"
+  },
+  "customerHistory": [
+    {
+      "transactionId": "TX_HIST_0001",
+      "customerRef": "CUST_DEMO_0001",
+      "amount": 52000,
+      "occurredAt": "2026-05-08T14:20:00",
+      "countryCode": "KR",
+      "city": "Seoul",
+      "merchantId": "MER_HIST_0001",
+      "merchantCategory": "grocery",
+      "deviceId": "DEV_OLD_0001",
+      "paymentMethod": "CARD"
+    },
+    {
+      "transactionId": "TX_HIST_0002",
+      "customerRef": "CUST_DEMO_0001",
+      "amount": 48000,
+      "occurredAt": "2026-05-08T15:10:00",
+      "countryCode": "KR",
+      "city": "Seoul",
+      "merchantId": "MER_HIST_0002",
+      "merchantCategory": "food",
+      "deviceId": "DEV_OLD_0001",
+      "paymentMethod": "CARD"
+    }
+  ]
+}

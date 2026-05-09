@@ -17,23 +17,23 @@ def clamp_score(value):
 def get_prd_risk_level(score):
     score = clamp_score(score)
     if score >= 80:
-        return "고위험"
+        return "critical"
     if score >= 60:
-        return "의심"
+        return "high"
     if score >= 40:
-        return "주의"
-    return "정상"
+        return "medium"
+    return "low"
 
 
 def recommended_action(score):
     level = get_prd_risk_level(score)
-    if level == "고위험":
-        return "거래 보류 후 관리자 검토"
-    if level == "의심":
-        return "추가 인증 또는 관리자 확인"
-    if level == "주의":
-        return "승인 후 모니터링"
-    return "승인"
+    if level == "critical":
+        return "hold transaction and require manual review"
+    if level == "high":
+        return "request additional verification or analyst review"
+    if level == "medium":
+        return "approve with monitoring"
+    return "approve"
 
 
 def score_personal_pattern(features):

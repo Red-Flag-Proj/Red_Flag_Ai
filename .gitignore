@@ -1,0 +1,29 @@
+# Python runtime artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local dependency/vendor installs
+.pydeps/
+.venv/
+venv/
+
+# Local temp files
+.tmp/
+.pip-tmp/
+
+# Generated FraudGuard outputs
+AI Engine/results.json
+AI Engine/personal_model_results.json
+AI Engine/data/db_test_transactions_200.csv
+AI Engine/data/db_test_transactions_200_masked.csv
+AI Engine/data/masking_audit.jsonl
+AI Engine/data/reidentification_risk_report.json
+
+# Keep generated datasets out of source unless intentionally reviewed.
+AI Engine/data/personal_customers_10_transactions.csv
+
+# Generated model artifacts
+AI Engine/model/*.joblib
+AI Engine/model/*.pkl
+AI Engine/model/model_metadata.json
