@@ -88,6 +88,11 @@ def device_id(customer, kind):
     return f"{kind}-{customer['ref'].lower()}"
 
 
+def realistic_second(*values):
+    seed = sum((index + 1) * int(value) for index, value in enumerate(values))
+    return (seed * 17 + 11) % 60
+
+
 def normal_amount(customer, day_index):
     # Weekly/monthly rhythm and payday spikes make normal behavior less flat.
     weekly = 1 + ((day_index % 7) - 3) * 0.025
@@ -100,7 +105,12 @@ def normal_amount(customer, day_index):
 def normal_transaction(customer, customer_index, tx_index, normal_tx_per_customer):
     occurred_at = BASE_DATE - timedelta(days=normal_tx_per_customer - tx_index)
     hour = random.choice(customer["hours"])
-    occurred_at = occurred_at.replace(hour=hour, minute=(tx_index * 7 + customer_index * 3) % 60, second=0, microsecond=0)
+    occurred_at = occurred_at.replace(
+        hour=hour,
+        minute=(tx_index * 7 + customer_index * 3) % 60,
+        second=realistic_second(customer_index, tx_index),
+        microsecond=0,
+    )
     lat, lon = CITY_COORDINATES[customer["city"]]
 
     merchant_category = random.choices(
@@ -206,7 +216,12 @@ def normal_exception_transactions(customer, customer_index):
 
     rows = []
     for case in cases:
-        occurred_at = (BASE_DATE - timedelta(days=case["daysAgo"])).replace(hour=case["hour"], minute=41, second=0, microsecond=0)
+        occurred_at = (BASE_DATE - timedelta(days=case["daysAgo"])).replace(
+            hour=case["hour"],
+            minute=41,
+            second=realistic_second(customer_index, case["daysAgo"]),
+            microsecond=0,
+        )
         rows.append({
             "transactionId": f"{customer['ref']}-{case['suffix']}",
             "customerRef": customer["ref"],
@@ -306,7 +321,12 @@ def anomaly_transactions(customer, customer_index, normal_tx_per_customer):
 
     rows = []
     for case in cases:
-        occurred_at = (BASE_DATE - timedelta(days=case["daysAgo"])).replace(hour=case["hour"], minute=17, second=0, microsecond=0)
+        occurred_at = (BASE_DATE - timedelta(days=case["daysAgo"])).replace(
+            hour=case["hour"],
+            minute=17,
+            second=realistic_second(customer_index, case["daysAgo"]),
+            microsecond=0,
+        )
         rows.append({
             "transactionId": f"{customer['ref']}-{case['suffix']}",
             "customerRef": customer["ref"],
@@ -331,7 +351,12 @@ def anomaly_transactions(customer, customer_index, normal_tx_per_customer):
             "scenario": case["scenario"],
         })
 
-    burst_start = (BASE_DATE - timedelta(days=offset_days + 12 + (customer_index % 17))).replace(hour=1, minute=5, second=0, microsecond=0)
+    burst_start = (BASE_DATE - timedelta(days=offset_days + 12 + (customer_index % 17))).replace(
+        hour=1,
+        minute=5,
+        second=realistic_second(customer_index, offset_days, 12),
+        microsecond=0,
+    )
     for burst_index in range(3):
         occurred_at = burst_start + timedelta(minutes=burst_index * 8)
         rows.append({
@@ -358,7 +383,12 @@ def anomaly_transactions(customer, customer_index, normal_tx_per_customer):
             "scenario": "BURST_DAWN_NEW_DEVICE_METHOD",
         })
 
-    stealth_start = (BASE_DATE - timedelta(days=offset_days + 18 + (customer_index % 17))).replace(hour=random.choice(customer["hours"]), minute=3, second=0, microsecond=0)
+    stealth_start = (BASE_DATE - timedelta(days=offset_days + 18 + (customer_index % 17))).replace(
+        hour=random.choice(customer["hours"]),
+        minute=3,
+        second=realistic_second(customer_index, offset_days, 18),
+        microsecond=0,
+    )
     stealth_cases = [
         ("A-STEALTH-SMALL-TEST", 7000, 0, "DIGITAL", "digital-test-01", "STEALTH_PRECURSOR_SMALL_TEST", 0),
         ("A-STEALTH-LARGE-FOLLOWUP", round(customer["base"] * random.uniform(2.8, 3.6)), 4, "ELECTRONICS", "electronics-followup-01", "SMALL_TEST_THEN_LARGE", 1),

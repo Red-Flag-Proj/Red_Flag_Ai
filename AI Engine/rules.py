@@ -110,6 +110,9 @@ def check_dawn_time(transaction, context):
 def check_new_device(transaction, context):
     # 신규 기기는 오탐이 잦으므로 단독으로는 낮은 점수만 부여합니다.
     known_device_ids = context.get("knownDeviceIds", [])
+    if not known_device_ids:
+        return {"triggered": False}
+
     is_first_device = bool(context.get("isFirstDevice", False))
 
     if is_first_device or transaction.get("deviceId") not in known_device_ids:

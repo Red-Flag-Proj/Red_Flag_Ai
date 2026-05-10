@@ -164,6 +164,8 @@ def build_context_from_history(transaction, history_rows, sequence_rows=None):
             distance_from_last_km = haversine_km(previous_coord[0], previous_coord[1], current_coord[0], current_coord[1])
             country_speed = distance_from_last_km / max(minutes_since_last / 60, 1 / 60)
 
+    has_personal_baseline = len(prior_rows) > 0
+
     return {
         "avgAmount7d": recent_7d_avg,
         "amountToAvgRatio": amount / avg_amount if avg_amount > 0 else 1,
@@ -188,11 +190,12 @@ def build_context_from_history(transaction, history_rows, sequence_rows=None):
         "recent30dCount": recent_30d_count,
         "recent7dAmountAvg": recent_7d_avg,
         "recent30dAmountAvg": recent_30d_avg,
-        "isFirstDevice": transaction.get("deviceId") not in known_devices,
-        "isNewCountryForCustomer": (transaction.get("countryCode") or transaction.get("ipCountry")) not in known_countries,
-        "isNewPaymentMethodForCustomer": transaction.get("paymentMethod") not in known_methods,
-        "newMerchantForUser": get_merchant(transaction) not in known_merchants,
-        "newCategoryForUser": get_category(transaction) not in known_categories,
+        "hasPersonalBaseline": has_personal_baseline,
+        "isFirstDevice": has_personal_baseline and transaction.get("deviceId") not in known_devices,
+        "isNewCountryForCustomer": has_personal_baseline and (transaction.get("countryCode") or transaction.get("ipCountry")) not in known_countries,
+        "isNewPaymentMethodForCustomer": has_personal_baseline and transaction.get("paymentMethod") not in known_methods,
+        "newMerchantForUser": has_personal_baseline and get_merchant(transaction) not in known_merchants,
+        "newCategoryForUser": has_personal_baseline and get_category(transaction) not in known_categories,
         "userForeignTxRatio": foreign_30d_count / recent_30d_count if recent_30d_count else 0,
         "userNightTxRatio": night_30d_count / recent_30d_count if recent_30d_count else 0,
         "smallTestThenLargeTx": is_small_test_then_large(amount, recent_10min),
