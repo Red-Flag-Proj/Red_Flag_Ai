@@ -13,7 +13,7 @@ FraudGuard is a Python-based fraud detection engine built around rule checks, cu
 - `AI Engine/test.py` runs the smoke test against sample transactions.
 - `AI Engine/train_personal_model.py` trains and evaluates the hybrid model.
 - `AI Engine/generate_personal_data.py` generates synthetic transaction history.
-- `AI Engine/generate_db_test_data.py` generates the 200-row backend/API integration candidate CSV.
+- `AI Engine/generate_db_test_data.py` generates the 400-row backend/API integration candidate CSV.
 - `AI Engine/mask_test_data.py` masks the backend/API test CSV for safe ingestion candidate use.
 - `AI Engine/generate_db_test_data_masked.py` generates the raw CSV and masks it in one step.
 - `AI Engine/validate_db_import_file.py` validates that a CSV is masked before it is used as a backend/API ingestion candidate.
@@ -49,8 +49,8 @@ python "AI Engine\assess_reidentification_risk.py"
 This produces:
 
 - `AI Engine/data/personal_customers_10_transactions.csv`
-- `AI Engine/data/db_test_transactions_200.csv`
-- `AI Engine/data/db_test_transactions_200_masked.csv`
+- `AI Engine/data/db_test_transactions_400.csv`
+- `AI Engine/data/db_test_transactions_400_masked.csv`
 - `AI Engine/data/masking_audit.jsonl`
 - `AI Engine/data/reidentification_risk_report.json`
 

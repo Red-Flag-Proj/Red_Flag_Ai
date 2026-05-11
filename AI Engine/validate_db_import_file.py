@@ -6,7 +6,7 @@ from mask_test_data import OUTPUT_COLUMNS, parse_timestamp, recalculate_time_fea
 
 
 BASE_DIR = Path(__file__).resolve().parent
-DEFAULT_INPUT_PATH = BASE_DIR / "data" / "db_test_transactions_200_masked.csv"
+DEFAULT_INPUT_PATH = BASE_DIR / "data" / "db_test_transactions_400_masked.csv"
 
 EXPECTED_PREFIXES = {
     "transactionId": "TX_",

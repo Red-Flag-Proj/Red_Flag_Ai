@@ -17,6 +17,8 @@ AI Engine/results.json
 AI Engine/personal_model_results.json
 AI Engine/data/db_test_transactions_200.csv
 AI Engine/data/db_test_transactions_200_masked.csv
+AI Engine/data/db_test_transactions_400.csv
+AI Engine/data/db_test_transactions_400_masked.csv
 AI Engine/data/masking_audit.jsonl
 AI Engine/data/reidentification_risk_report.json
 

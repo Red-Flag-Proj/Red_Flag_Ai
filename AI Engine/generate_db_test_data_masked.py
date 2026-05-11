@@ -6,8 +6,8 @@ from pathlib import Path
 
 
 BASE_DIR = Path(__file__).resolve().parent
-RAW_OUTPUT_PATH = BASE_DIR / "data" / "db_test_transactions_200.csv"
-MASKED_OUTPUT_PATH = BASE_DIR / "data" / "db_test_transactions_200_masked.csv"
+RAW_OUTPUT_PATH = BASE_DIR / "data" / "db_test_transactions_400.csv"
+MASKED_OUTPUT_PATH = BASE_DIR / "data" / "db_test_transactions_400_masked.csv"
 DEFAULT_AUDIT_LOG_PATH = BASE_DIR / "data" / "masking_audit.jsonl"
 DEFAULT_SALT_ENV = "FRAUDGUARD_MASKING_SALT"
 
@@ -19,8 +19,9 @@ def parse_args():
     parser.add_argument("--source", type=Path, default=BASE_DIR / "data" / "personal_customers_10_transactions.csv")
     parser.add_argument("--raw-output", type=Path, default=RAW_OUTPUT_PATH)
     parser.add_argument("--masked-output", type=Path, default=MASKED_OUTPUT_PATH)
-    parser.add_argument("--rows", type=int, default=200)
-    parser.add_argument("--anomalies", type=int, default=50)
+    parser.add_argument("--rows", type=int, default=400)
+    parser.add_argument("--anomalies", type=int, default=120)
+    parser.add_argument("--danger-stress", type=int, default=60)
     parser.add_argument("--seed", type=int, default=20260508)
     parser.add_argument("--day-offset", type=int, default=180)
     parser.add_argument("--amount-policy", choices=("keep", "round"), default="keep")
@@ -55,6 +56,8 @@ def main():
         str(args.rows),
         "--anomalies",
         str(args.anomalies),
+        "--danger-stress",
+        str(args.danger_stress),
         "--seed",
         str(args.seed),
     ]

@@ -11,8 +11,8 @@ from typing import Iterable
 
 
 BASE_DIR = Path(__file__).resolve().parent
-DEFAULT_INPUT_PATH = BASE_DIR / "data" / "db_test_transactions_200.csv"
-DEFAULT_OUTPUT_PATH = BASE_DIR / "data" / "db_test_transactions_200_masked.csv"
+DEFAULT_INPUT_PATH = BASE_DIR / "data" / "db_test_transactions_400.csv"
+DEFAULT_OUTPUT_PATH = BASE_DIR / "data" / "db_test_transactions_400_masked.csv"
 DEFAULT_AUDIT_LOG_PATH = BASE_DIR / "data" / "masking_audit.jsonl"
 DEFAULT_DAY_OFFSET = 180
 DEFAULT_AMOUNT_ROUNDING = 1000

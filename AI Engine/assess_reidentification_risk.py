@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 BASE_DIR = Path(__file__).resolve().parent
-DEFAULT_INPUT_PATH = BASE_DIR / "data" / "db_test_transactions_200_masked.csv"
+DEFAULT_INPUT_PATH = BASE_DIR / "data" / "db_test_transactions_400_masked.csv"
 DEFAULT_OUTPUT_PATH = BASE_DIR / "data" / "reidentification_risk_report.json"
 DEFAULT_MIN_GROUP_SIZE = 5
 
